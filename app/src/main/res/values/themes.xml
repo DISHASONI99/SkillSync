@@ -4,4 +4,5 @@
     <style name="Theme.Splash_screen" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
 <!--    <item name="statusBarColor" type="">@color/light_blue</item>-->
 <!--     <item name="statusBarColor" type="">@color/light_blue</item>-->
+<!--    <item name="" type="">coloe</item>-->
 </resources>

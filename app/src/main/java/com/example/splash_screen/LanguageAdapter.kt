@@ -10,10 +10,24 @@ import androidx.recyclerview.widget.RecyclerView
 
 class LanguageAdapter(private var mList: List<LanguageData>) :
     RecyclerView.Adapter<LanguageAdapter.LanguageViewHolder>() {
+    private lateinit var mListner : onItemClickListner
+    interface onItemClickListner{
+        fun onItemClick(position: Int)
+    }
 
-    inner class LanguageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    fun setonItemClickListner(listener: onItemClickListner){
+        mListner = listener
+    }
+    inner class LanguageViewHolder(itemView: View, listener: onItemClickListner) : RecyclerView.ViewHolder(itemView) {
         val logo: ImageView = itemView.findViewById(R.id.logoIv)
         val titleTv: TextView = itemView.findViewById(R.id.titleTv)
+
+        init {
+            itemView.setOnClickListener {
+                listener.onItemClick(adapterPosition)
+            }
+        }
+
 //        val langDescTv: TextView = itemView.findViewById(R.id.langDesc)
         val constraintLayout: ConstraintLayout = itemView.findViewById(R.id.constraintLayout)
 
@@ -29,7 +43,7 @@ class LanguageAdapter(private var mList: List<LanguageData>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LanguageViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.each_item, parent, false)
-        return LanguageViewHolder(view)
+        return LanguageViewHolder(view, mListner)
     }
 
     override fun onBindViewHolder(holder: LanguageViewHolder, position: Int) {
@@ -78,3 +92,7 @@ class LanguageAdapter(private var mList: List<LanguageData>) :
         return mList.size
     }
 }
+
+//private fun AdapterView.OnItemClickListener.onItemClick(adapterPosition: Int) {
+//
+//}

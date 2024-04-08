@@ -1,5 +1,6 @@
 package com.example.splash_screen
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -25,8 +26,18 @@ class skills_homepage : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
         addDataToList()
-        adapter = LanguageAdapter(mList)
+        var adapter = LanguageAdapter(mList)
         recyclerView.adapter = adapter
+
+
+        adapter.setonItemClickListner(object : LanguageAdapter.onItemClickListner{
+            override fun onItemClick(position: Int) {
+//                Toast.makeText(this@skills_homepage, "Welcome", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@skills_homepage, splash_screen::class.java)
+                startActivity(intent)
+            }
+
+        })
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -53,7 +64,8 @@ class skills_homepage : AppCompatActivity() {
 
             if (filteredList.isEmpty()) {
                 Toast.makeText(this, "No Data found", Toast.LENGTH_SHORT).show()
-            } else {
+            }
+            else {
                 adapter.setFilteredList(filteredList)
             }
         }
